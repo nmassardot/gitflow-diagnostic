@@ -37,3 +37,23 @@ def top_10_users(path):
 
     ordered_users = sorted(users_dict, key=lambda x: x["tweets"], reverse=True)
     return ordered_users[0:10]
+
+
+def top_10_hashtags(path):
+    hashtags = defaultdict(int)
+
+    with open(path) as file:
+        lines = file.readlines()
+
+    for line in lines:
+        dict_line = json.loads(line)
+        line_hashtags = filter(lambda x: x.startswith("#"), dict_line["content"].split(" "))
+        for h in line_hashtags:
+            hashtags[h] += 1
+
+    hashtags_dict = []
+    for hashtag in hashtags.keys():
+        hashtags_dict.append({"hashtag": hashtag, "count": hashtags[hashtag]})
+
+    ordered_hashtags = sorted(hashtags_dict, key=lambda x: x["count"], reverse=True)
+    return ordered_hashtags[0:10]

@@ -1,6 +1,7 @@
 from utils import (
     top_10_most_retweeted,
     top_10_users,
+    top_10_hashtags,
 )
 
 def main():
@@ -8,6 +9,7 @@ def main():
     path_to_data = "data/farmers-protest-tweets-2021-03-5.json"
     print("- Top 10 tweets most retweeted (1)")
     print("- Top 10 users (2)\n")
+    print("- Top 10 used hashtags (4)\n")
     user_input = int(input())
 
     if user_input == 1:
@@ -22,6 +24,14 @@ def main():
         print("\nTop 10 users")
         for i in range(len(top_users)):
             print(f"{i+1}. {top_users[i]['username']}: {top_users[i]['tweets']}")
+
+    elif user_input == 4:
+        top_hashtags = top_10_hashtags(path_to_data)
+
+        print("\nTop 10 used hashtags")
+        for i in range(len(top_hashtags)):
+            print(f"{i+1}. {top_hashtags[i]['hashtag']}: {top_hashtags[i]['count']}")
+
 
 if __name__ == "__main__":
     main()
