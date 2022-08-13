@@ -57,3 +57,22 @@ def top_10_hashtags(path):
 
     ordered_hashtags = sorted(hashtags_dict, key=lambda x: x["count"], reverse=True)
     return ordered_hashtags[0:10]
+
+
+def top_10_days_with_more_tweets(path):
+    dates = defaultdict(int)
+
+    with open(path) as file:
+        lines = file.readlines()
+
+    for line in lines:
+        dict_lines = json.loads(line)
+        date = dict_lines["date"][0:10]
+        dates[date] += 1
+
+    dates_dict = []
+    for date in dates.keys():
+        dates_dict.append({"date": date, "count": dates[date]})
+
+    ordered_dates = sorted(dates_dict, key=lambda x: x["count"], reverse=True)
+    return ordered_dates[0:10]
